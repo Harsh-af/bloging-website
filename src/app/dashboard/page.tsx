@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { supabase } from "../supabaseClient";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ProtectedRoute from "../components/ProtectedRoute";
 
-export default function DashboardPage() {
+function DashboardContent() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -112,5 +112,13 @@ export default function DashboardPage() {
         </form>
       </main>
     </ProtectedRoute>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }

@@ -2,11 +2,16 @@ import { supabase } from "../../supabaseClient";
 import Link from "next/link";
 import ProtectedRoute from "../../components/ProtectedRoute";
 
-export default async function PostPage({ params }: { params: { id: string } }) {
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = await params;
   const { data: post, error } = await supabase
     .from("posts")
     .select("*")
-    .eq("id", params.id)
+    .eq("id", resolvedParams.id)
     .single();
 
   if (error || !post) {

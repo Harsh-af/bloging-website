@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "./supabaseClient";
 import BlogPostItem from "./components/BlogPostItem";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -21,13 +21,7 @@ export default function HomePage() {
   const [error, setError] = useState("");
   const { user } = useAuth();
 
-  useEffect(() => {
-    if (user) {
-      fetchPosts();
-    }
-  }, [user]);
-
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     try {
       console.log("Fetching posts...");
       console.log("Current user:", user?.id);
@@ -57,7 +51,13 @@ export default function HomePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      fetchPosts();
+    }
+  }, [user, fetchPosts]);
 
   return (
     <ProtectedRoute>
