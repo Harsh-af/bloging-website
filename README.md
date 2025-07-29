@@ -1,40 +1,78 @@
-<<<<<<< HEAD
 # bloging-website
-=======
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## SETUP
 
 First, run the development server:
 
 ```bash
 npm run dev
-# or
+```
+or
+```bash
 yarn dev
-# or
+```
+or
+```bash
 pnpm dev
-# or
+```
+or
+```bash
 bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## FEATURES:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Creation of a Blog(INSERT)**
+  - Blog Title
+  - Blog Content
+    - Text entered by USER
+    - Import .txt,.md,.doc,.docx
+  - Timestamp of Blog posted
+- **Storing of Blog data (SUPABASE)**
+  - The USER_ID of the USER(who posted the blog under the BLOG_RIGHTS) is also stored in the database.
+  - Blog's Topic
+  - Blog's Content
+  - Timestamp of when the Blog was created
+- **VIEW of all BLOGs**
+  - All the BLOGs created by all the USERs can be viewed on the TOP page.
+- **DELETE and EDIT authorization of a Blog**
+  - Only the USER who created the BLOG can DELETE and EDIT their BLOG.
+- **DELETE of a Blog**
+  - BLOGs can be deleted.
+- **EDIT of a Blog**
+  - BLOGs can be editied.
+- **USER AUTHENTICATION (SUPABASE O AUTH)**
+  - Sign-in feature.
+  - Sign-up feature.
+    - Email confirmation feature.
+- **Loged-in USER USER_NAME display**
+  - Display the name of logged-in USER on TOP page feature.
+- **Dark THEME and Light THEME**
+  - Dark THEME feature.
+  - Light THEME feature.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## CHARTER:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> 35e013a (initial commit)
+- **USER**:
+  - One who has ceated an account in BLOGGER.
+  - One with the authority to CREATE a BLOG
+- **USER_ID**:
+  - A valid user's ID(unique).
+- **BLOG** :
+  - The information releted to the BLOG and the content of the BLOG itself.
+- **BLOG_RIGHTS** :
+  - Authority to DELETE the BLOG
+  - Authority to EDIT the BLOG
+- **CREATE**:
+  - Creation of a BLOG
+- **VIEW**:
+  - Viwing of a BLOG
+- **DELETE**:
+  - Deletion the BLOG
+- **UPDATE**:
+  - Updating a BLOG
+- **TOP**:
+  - The main page where all the BLOGs can be viewed and managed.
