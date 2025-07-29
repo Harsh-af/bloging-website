@@ -19,12 +19,23 @@ export default function BlogPostItem({ post }: BlogPostItemProps) {
   const isOwnPost = user?.id === post.author_id;
 
   return (
-    <li className="border-[1px] border-[#353535] rounded-lg p-4 mb-4 flex justify-between items-start group hover:bg-[#151515] cursor-pointer transition-colors duration-300">
+    <li
+      className="border-[1px] rounded-lg p-4 mb-4 flex justify-between items-start group hover:bg-[#151515] cursor-pointer transition-colors duration-300 backdrop-blur-sm"
+      style={{
+        backgroundColor: "var(--blur-bg)",
+        borderColor: "var(--blur-border)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+      }}>
       <a href={`/post/${post.id}`} className="flex-1 block">
-        <div className="font-bold transition-colors duration-200 group-hover:text-white">
+        <div
+          className="font-bold transition-colors duration-200 group-hover:text-white"
+          style={{ color: "var(--foreground)" }}>
           {post.title}
         </div>
-        <div className="text-sm text-gray-500 transition-colors duration-200 group-hover:text-gray-300">
+        <div
+          className="text-sm transition-colors duration-200 group-hover:text-gray-300"
+          style={{ color: "var(--muted-text)" }}>
           <p>By: {post.author_email}</p>
           <p>{new Date(post.created_at).toLocaleDateString()}</p>
         </div>

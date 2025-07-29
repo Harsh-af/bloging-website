@@ -12,7 +12,15 @@ export default function EditButton({ postId }: EditButtonProps) {
   return (
     <button
       onClick={handleEdit}
-      className="text-blue-500 hover:text-blue-700 p-1 bg-[#191951] rounded-sm mr-2"
+      className="p-1 rounded-sm mr-2 backdrop-blur-sm transition-colors"
+      style={{
+        backgroundColor: "rgba(59, 130, 246, 0.1)",
+        color: "var(--foreground)",
+        borderColor: "rgba(59, 130, 246, 0.3)",
+        border: "1px solid rgba(59, 130, 246, 0.3)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+      }}
       aria-label="Edit post">
       <svg
         width="20"

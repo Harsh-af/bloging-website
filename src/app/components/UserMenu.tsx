@@ -14,12 +14,20 @@ export default function UserMenu() {
 
   return (
     <div className="flex items-center gap-4">
-      <p className="text-sm text-gray-100">
+      <p className="text-sm" style={{ color: "var(--foreground)" }}>
         ようこそ、<span className="font-bold">{user?.email}</span>
       </p>
       <button
         onClick={handleSignOut}
-        className="border-[#c60000] border-[1px] bg-[#320000] text-white px-4 py-2 rounded hover:bg-red-600 transition-colors text-sm">
+        className="px-4 py-2 rounded text-sm backdrop-blur-sm transition-colors"
+        style={{
+          backgroundColor: "rgba(239, 68, 68, 0.1)",
+          color: "var(--foreground)",
+          borderColor: "rgba(239, 68, 68, 0.3)",
+          border: "1px solid rgba(239, 68, 68, 0.3)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+        }}>
         ログアウト
       </button>
     </div>

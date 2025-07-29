@@ -5,6 +5,7 @@ import { supabase } from "./supabaseClient";
 import BlogPostItem from "./components/BlogPostItem";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UserMenu from "./components/UserMenu";
+import ThemeToggle from "./components/ThemeToggle";
 import { useAuth } from "./contexts/AuthContext";
 
 interface Post {
@@ -62,12 +63,18 @@ export default function HomePage() {
   return (
     <ProtectedRoute>
       <main className="px-30 py-10">
-        <h1 className="text-[95px] font-bold mb-6 dm-serif-display-regular">
+        <h1
+          className="text-[95px] font-bold mb-6 dm-serif-display-regular"
+          style={{ color: "var(--foreground)" }}>
           Blogger.
         </h1>
         <div className="flex justify-between items-center w-full mb-6">
           <div className="flex flex-col gap-3">
-            <p className="font-bold dm-serif-display-regular">こんにちは！</p>
+            <p
+              className="font-bold dm-serif-display-regular"
+              style={{ color: "var(--foreground)" }}>
+              こんにちは！
+            </p>
             <a
               href="/dashboard"
               className="inline-flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
@@ -85,16 +92,21 @@ export default function HomePage() {
                 <path d="M12 5v14" />
               </svg>
             </a>
-            <p className="font-bold text-left block mt-8">ブログ:</p>
+            <p
+              className="font-bold text-left block mt-8"
+              style={{ color: "var(--foreground)" }}>
+              ブログ:
+            </p>
           </div>
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <UserMenu />
           </div>
         </div>
         {loading ? (
           <div className="text-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p>Loading posts...</p>
+            <p style={{ color: "var(--foreground)" }}>Loading posts...</p>
           </div>
         ) : error ? (
           <div className="text-center py-8">
@@ -112,7 +124,7 @@ export default function HomePage() {
             ))}
           </ul>
         ) : (
-          <p>No posts yet :(</p>
+          <p style={{ color: "var(--foreground)" }}>No posts yet :(</p>
         )}
       </main>
     </ProtectedRoute>

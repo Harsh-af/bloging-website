@@ -30,7 +30,15 @@ export default function DeleteButton({ postId }: DeleteButtonProps) {
   return (
     <button
       onClick={handleDelete}
-      className="text-red-500 hover:text-red-700 p-1 bg-[#440000] rounded-sm"
+      className="p-1 rounded-sm backdrop-blur-sm transition-colors"
+      style={{
+        backgroundColor: "rgba(239, 68, 68, 0.1)",
+        color: "var(--foreground)",
+        borderColor: "rgba(239, 68, 68, 0.3)",
+        border: "1px solid rgba(239, 68, 68, 0.3)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+      }}
       aria-label="Delete post">
       <svg
         width="20"

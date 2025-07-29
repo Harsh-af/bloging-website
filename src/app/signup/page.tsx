@@ -4,6 +4,7 @@ import { useState } from "react";
 import { supabase } from "../supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ThemeToggle from "../components/ThemeToggle";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
@@ -43,17 +44,27 @@ export default function SignUpPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center px-6">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-[50px] font-bold mb-4 dm-serif-display-regular">
+          <h1
+            className="text-[50px] font-bold mb-4 dm-serif-display-regular"
+            style={{ color: "var(--foreground)" }}>
             Sign Up
           </h1>
-          <p className="text-gray-600">Create your Blogger account</p>
+          <p style={{ color: "var(--foreground)" }}>
+            Create your Blogger account
+          </p>
         </div>
 
         <form onSubmit={handleSignUp} className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium mb-2"
+              style={{ color: "var(--foreground)" }}>
               Email
             </label>
             <input
@@ -61,7 +72,14 @@ export default function SignUpPage() {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-sm"
+              style={{
+                backgroundColor: "var(--blur-bg)",
+                color: "var(--foreground)",
+                borderColor: "var(--blur-border)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+              }}
               required
             />
           </div>
@@ -69,7 +87,8 @@ export default function SignUpPage() {
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium mb-2">
+              className="block text-sm font-medium mb-2"
+              style={{ color: "var(--foreground)" }}>
               Password
             </label>
             <input
@@ -77,7 +96,14 @@ export default function SignUpPage() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-sm"
+              style={{
+                backgroundColor: "var(--blur-bg)",
+                color: "var(--foreground)",
+                borderColor: "var(--blur-border)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+              }}
               required
               minLength={6}
             />
@@ -86,7 +112,8 @@ export default function SignUpPage() {
           <div>
             <label
               htmlFor="confirmPassword"
-              className="block text-sm font-medium mb-2">
+              className="block text-sm font-medium mb-2"
+              style={{ color: "var(--foreground)" }}>
               Confirm Password
             </label>
             <input
@@ -94,19 +121,30 @@ export default function SignUpPage() {
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-sm"
+              style={{
+                backgroundColor: "var(--blur-bg)",
+                color: "var(--foreground)",
+                borderColor: "var(--blur-border)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+              }}
               required
             />
           </div>
 
           {error && (
-            <div className="border-[#c60000] border-[1px] bg-[#320000] p-3 rounded-lg">
+            <div
+              className="text-red-600 text-sm p-3 rounded-lg"
+              style={{ backgroundColor: "rgba(239, 68, 68, 0.1)" }}>
               {error}
             </div>
           )}
 
           {message && (
-            <div className="text-green-600 text-sm bg-[#001e07] border-green-600 border-[1px] p-3 rounded-lg">
+            <div
+              className="text-green-600 text-sm p-3 rounded-lg"
+              style={{ backgroundColor: "rgba(34, 197, 94, 0.1)" }}>
               {message}
             </div>
           )}
@@ -120,7 +158,7 @@ export default function SignUpPage() {
         </form>
 
         <div className="text-center mt-6">
-          <p className="text-gray-600">
+          <p style={{ color: "var(--foreground)" }}>
             Already have an account?{" "}
             <Link href="/signin" className="text-blue-600 hover:underline">
               Sign in
