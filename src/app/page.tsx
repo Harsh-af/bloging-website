@@ -14,6 +14,7 @@ interface Post {
   created_at: string;
   author_id: string;
   author_email?: string;
+  image_url?: string;
 }
 
 export default function HomePage() {
@@ -92,40 +93,42 @@ export default function HomePage() {
                 <path d="M12 5v14" />
               </svg>
             </a>
-            <p
-              className="font-bold text-left block mt-8"
-              style={{ color: "var(--foreground)" }}>
-              ブログ:
-            </p>
           </div>
           <div className="flex items-center gap-4">
             <ThemeToggle />
             <UserMenu />
           </div>
         </div>
-        {loading ? (
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-            <p style={{ color: "var(--foreground)" }}>Loading posts...</p>
-          </div>
-        ) : error ? (
-          <div className="text-center py-8">
-            <p className="text-red-600">Error: {error}</p>
-            <button
-              onClick={fetchPosts}
-              className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-              Retry
-            </button>
-          </div>
-        ) : posts && posts.length > 0 ? (
-          <ul>
-            {posts.map((post) => (
-              <BlogPostItem key={post.id} post={post} />
-            ))}
-          </ul>
-        ) : (
-          <p style={{ color: "var(--foreground)" }}>No posts yet :(</p>
-        )}
+        <div className="mt-10">
+          <p
+            className="font-bold text-left block mb-3"
+            style={{ color: "var(--foreground)" }}>
+            ブログ:
+          </p>
+          {loading ? (
+            <div className="text-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+              <p style={{ color: "var(--foreground)" }}>Loading posts...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-8">
+              <p className="text-red-600">Error: {error}</p>
+              <button
+                onClick={fetchPosts}
+                className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                Retry
+              </button>
+            </div>
+          ) : posts && posts.length > 0 ? (
+            <ul>
+              {posts.map((post) => (
+                <BlogPostItem key={post.id} post={post} />
+              ))}
+            </ul>
+          ) : (
+            <p style={{ color: "var(--foreground)" }}>No posts yet :(</p>
+          )}
+        </div>
       </main>
     </ProtectedRoute>
   );

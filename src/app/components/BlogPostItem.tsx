@@ -11,6 +11,7 @@ interface BlogPostItemProps {
     created_at: string;
     author_id: string;
     author_email?: string;
+    image_url?: string;
   };
 }
 
@@ -28,16 +29,29 @@ export default function BlogPostItem({ post }: BlogPostItemProps) {
         WebkitBackdropFilter: "blur(8px)",
       }}>
       <a href={`/post/${post.id}`} className="flex-1 block">
-        <div
-          className="font-bold transition-colors duration-200 group-hover:text-white"
-          style={{ color: "var(--foreground)" }}>
-          {post.title}
-        </div>
-        <div
-          className="text-sm transition-colors duration-200 group-hover:text-gray-300"
-          style={{ color: "var(--muted-text)" }}>
-          <p>By: {post.author_email}</p>
-          <p>{new Date(post.created_at).toLocaleDateString()}</p>
+        <div className="flex gap-4">
+          {post.image_url && (
+            <div className="flex-shrink-0">
+              <img
+                src={post.image_url}
+                alt={post.title}
+                className="w-20 h-20 object-cover rounded"
+              />
+            </div>
+          )}
+          <div className="flex-1">
+            <div
+              className="font-bold transition-colors duration-200 group-hover:text-white"
+              style={{ color: "var(--foreground)" }}>
+              {post.title}
+            </div>
+            <div
+              className="text-sm transition-colors duration-200 group-hover:text-gray-300"
+              style={{ color: "var(--muted-text)" }}>
+              <p>By: {post.author_email}</p>
+              <p>{new Date(post.created_at).toLocaleDateString()}</p>
+            </div>
+          </div>
         </div>
       </a>
       {isOwnPost && (

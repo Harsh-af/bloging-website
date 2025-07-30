@@ -25,9 +25,11 @@ export default async function PostPage({
 
   return (
     <ProtectedRoute>
-      <main className="px-30 py-20">
+      <main className="px-30 py-20" style={{ color: "var(--foreground)" }}>
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-[50px] font-bold dm-serif-display-regular">
+          <h1
+            className="text-[50px] font-bold dm-serif-display-regular"
+            style={{ color: "var(--foreground)" }}>
             {post.title}
           </h1>
           <div className="flex gap-2">
@@ -55,10 +57,23 @@ export default async function PostPage({
             </Link>
           </div>
         </div>
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm mb-4" style={{ color: "var(--muted-text)" }}>
           {new Date(post.created_at).toLocaleDateString()}
         </p>
-        <div className="prose max-w-none">{post.content}</div>
+        {post.image_url && (
+          <div className="mb-6">
+            <img
+              src={post.image_url}
+              alt={post.title}
+              className="w-full max-h-96 object-cover rounded-lg shadow-lg"
+            />
+          </div>
+        )}
+        <div
+          className="prose max-w-none"
+          style={{ color: "var(--foreground)" }}>
+          {post.content}
+        </div>
       </main>
     </ProtectedRoute>
   );
