@@ -94,7 +94,7 @@ export default function MarkdownEditor({
   );
 }
 
-  function MarkdownPreview({ content }: { content: string }) {
+function MarkdownPreview({ content }: { content: string }) {
   if (!content.trim()) {
     return (
       <div className="text-gray-500 italic">
@@ -135,7 +135,6 @@ export default function MarkdownEditor({
       continue;
     }
 
-    if (line.startsWith("# ")) {
     if (line.startsWith("# ")) {
       elements.push(
         <h1 key={i} className="text-2xl font-bold mb-2">
@@ -179,7 +178,7 @@ export default function MarkdownEditor({
     } else if (line.startsWith("1. ")) {
       elements.push(
         <li key={i} className="ml-4 mb-1">
-          {i + 1}. {line.substring(3)}
+          {line.substring(3)}
         </li>
       );
     } else if (line.trim() === "") {
