@@ -25,7 +25,6 @@ export default function MarkdownEditor({
       const newValue = value.substring(0, start) + "  " + value.substring(end);
       onChange(newValue);
 
-      // Set cursor position after the inserted tab
       setTimeout(() => {
         target.selectionStart = target.selectionEnd = start + 2;
       }, 0);
@@ -95,8 +94,7 @@ export default function MarkdownEditor({
   );
 }
 
-// Markdown Preview Component
-function MarkdownPreview({ content }: { content: string }) {
+  function MarkdownPreview({ content }: { content: string }) {
   if (!content.trim()) {
     return (
       <div className="text-gray-500 italic">
@@ -113,10 +111,8 @@ function MarkdownPreview({ content }: { content: string }) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    // Check for code block start/end
     if (line.trim().startsWith("```")) {
       if (inCodeBlock) {
-        // End of code block
         elements.push(
           <pre
             key={`code-${i}`}
@@ -129,19 +125,17 @@ function MarkdownPreview({ content }: { content: string }) {
         inCodeBlock = false;
         codeBlockContent = [];
       } else {
-        // Start of code block
         inCodeBlock = true;
       }
       continue;
     }
 
     if (inCodeBlock) {
-      // Add line to code block
       codeBlockContent.push(line);
       continue;
     }
 
-    // Regular markdown parsing
+    if (line.startsWith("# ")) {
     if (line.startsWith("# ")) {
       elements.push(
         <h1 key={i} className="text-2xl font-bold mb-2">
@@ -199,7 +193,6 @@ function MarkdownPreview({ content }: { content: string }) {
     }
   }
 
-  // Handle any remaining code block
   if (inCodeBlock && codeBlockContent.length > 0) {
     elements.push(
       <pre

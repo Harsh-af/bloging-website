@@ -11,7 +11,7 @@ interface BlogPostItemProps {
     title: string;
     created_at: string;
     author_id: string;
-    author_email?: string;
+    author_display_name?: string;
     image_url?: string;
   };
 }
@@ -51,7 +51,7 @@ export default function BlogPostItem({ post }: BlogPostItemProps) {
             <div
               className="text-sm transition-colors duration-200 group-hover:text-gray-300"
               style={{ color: "var(--muted-text)" }}>
-              <p>By: {post.author_email}</p>
+              <p>By: {post.author_display_name}</p>
               <p>{new Date(post.created_at).toLocaleDateString()}</p>
             </div>
           </div>

@@ -18,6 +18,19 @@ export default function SignInPage() {
     setLoading(true);
     setError("");
 
+    // Validate required fields
+    if (!email.trim()) {
+      setError("Email is required");
+      setLoading(false);
+      return;
+    }
+
+    if (!password) {
+      setError("Password is required");
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -52,7 +65,7 @@ export default function SignInPage() {
               htmlFor="email"
               className="block text-sm font-medium mb-2"
               style={{ color: "var(--foreground)" }}>
-              Email
+              Email*
             </label>
             <input
               type="email"
@@ -76,7 +89,7 @@ export default function SignInPage() {
               htmlFor="password"
               className="block text-sm font-medium mb-2"
               style={{ color: "var(--foreground)" }}>
-              Password
+              Password*
             </label>
             <input
               type="password"

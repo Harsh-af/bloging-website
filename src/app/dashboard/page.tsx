@@ -9,6 +9,8 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import ThemeToggle from "../components/ThemeToggle";
 import MarkdownEditor from "../components/MarkdownEditor";
 import MarkdownHelp from "../components/MarkdownHelp";
+import EmailForm from "../components/EmailForm";
+import PasswordForm from "../components/PasswordForm";
 
 function DashboardContent() {
   const [title, setTitle] = useState("");
@@ -54,7 +56,6 @@ function DashboardContent() {
   ) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Handle text files
       const reader = new FileReader();
       reader.onload = (e) => {
         const text = e.target?.result as string;
@@ -73,13 +74,11 @@ function DashboardContent() {
   ) => {
     const file = event.target.files?.[0];
     if (file) {
-      // Validate file type
       if (!file.type.startsWith("image/")) {
         alert("Please select an image file");
         return;
       }
 
-      // Validate file size (5MB limit)
       if (file.size > 5 * 1024 * 1024) {
         alert("Image size must be less than 5MB");
         return;
@@ -107,7 +106,6 @@ function DashboardContent() {
       const fileExt = file.name.split(".").pop();
       const fileName = `${user.id}/${Date.now()}.${fileExt}`;
 
-      console.log("Uploading file:", fileName);
       const { data: uploadData, error } = await supabase.storage
         .from("blog-images")
         .upload(fileName, file);
@@ -117,7 +115,6 @@ function DashboardContent() {
         throw error;
       }
 
-      // Get the public URL using Supabase client
       const { data: urlData } = supabase.storage
         .from("blog-images")
         .getPublicUrl(fileName);
@@ -143,10 +140,9 @@ function DashboardContent() {
     try {
       let finalImageUrl = imageUrl;
 
-      // Upload image if a new one is selected
       if (imageFile) {
         const uploadedUrl = await uploadImage(imageFile);
-        if (!uploadedUrl) return; // Stop if upload failed
+        if (!uploadedUrl) return;
         finalImageUrl = uploadedUrl;
       }
 
@@ -209,126 +205,140 @@ function DashboardContent() {
             </Link>
           </div>
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-lg">
-          <input
-            type="text"
-            placeholder="Post Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="border p-2 rounded backdrop-blur-sm"
-            style={{
-              backgroundColor: "var(--blur-bg)",
-              color: "var(--foreground)",
-              borderColor: "var(--blur-border)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
-            }}
-            required
-          />
-          <MarkdownHelp />
-          <MarkdownEditor
-            value={content}
-            onChange={setContent}
-            placeholder="Write your blog post in Markdown..."
-          />
-
-          {/* Image Upload Section */}
-          <div className="space-y-2">
-            <label
-              className="block text-sm font-medium"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <h2
+              className="text-xl font-semibold mb-4"
               style={{ color: "var(--foreground)" }}>
-              Blog Image (Optional)
-            </label>
-            <input
-              type="file"
-              ref={imageInputRef}
-              onChange={handleImageUpload}
-              accept="image/*"
-              className="hidden"
-            />
-            <button
-              type="button"
-              onClick={handleImageClick}
-              disabled={uploading}
-              className="w-full border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 hover:border-blue-500 transition-colors flex flex-col items-center justify-center gap-2"
-              style={{
-                backgroundColor: "var(--blur-bg)",
-                borderColor: "var(--blur-border)",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
-              }}>
-              {imageUrl ? (
-                <div className="w-full">
-                  <Image
-                    src={imageUrl}
-                    alt="Preview"
-                    width={400}
-                    height={128}
-                    className="w-full h-32 object-cover rounded"
-                  />
-                  <p
-                    className="text-sm mt-2"
-                    style={{ color: "var(--muted-text)" }}>
-                    Click to change image
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{ color: "var(--muted-text)" }}>
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7,10 12,15 17,10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  <span style={{ color: "var(--muted-text)" }}>
-                    {uploading ? "Uploading..." : "Click to upload image"}
-                  </span>
-                </>
-              )}
-            </button>
+              Create New Post
+            </h2>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <input
+                type="text"
+                placeholder="Post Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="border p-2 rounded backdrop-blur-sm"
+                style={{
+                  backgroundColor: "var(--blur-bg)",
+                  color: "var(--foreground)",
+                  borderColor: "var(--blur-border)",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                }}
+                required
+              />
+              <MarkdownHelp />
+              <MarkdownEditor
+                value={content}
+                onChange={setContent}
+                placeholder="Write your blog post in Markdown..."
+              />
+
+              {/* Image Upload Section */}
+              <div className="space-y-2">
+                <label
+                  className="block text-sm font-medium"
+                  style={{ color: "var(--foreground)" }}>
+                  Blog Image (Optional)
+                </label>
+                <input
+                  type="file"
+                  ref={imageInputRef}
+                  onChange={handleImageUpload}
+                  accept="image/*"
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={handleImageClick}
+                  disabled={uploading}
+                  className="w-full border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4 hover:border-blue-500 transition-colors flex flex-col items-center justify-center gap-2"
+                  style={{
+                    backgroundColor: "var(--blur-bg)",
+                    borderColor: "var(--blur-border)",
+                    backdropFilter: "blur(8px)",
+                    WebkitBackdropFilter: "blur(8px)",
+                  }}>
+                  {imageUrl ? (
+                    <div className="w-full">
+                      <Image
+                        src={imageUrl}
+                        alt="Preview"
+                        width={400}
+                        height={128}
+                        className="w-full h-32 object-cover rounded"
+                      />
+                      <p
+                        className="text-sm mt-2"
+                        style={{ color: "var(--muted-text)" }}>
+                        Click to change image
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        style={{ color: "var(--muted-text)" }}>
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7,10 12,15 17,10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                      <span style={{ color: "var(--muted-text)" }}>
+                        {uploading ? "Uploading..." : "Click to upload image"}
+                      </span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileImport}
+                accept=".txt,.md,.doc,.docx"
+                className="hidden"
+              />
+              <button
+                type="button"
+                onClick={handleImportClick}
+                className="bg-green-600 text-white p-2 rounded hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="w-4 h-4">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7,10 12,15 17,10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Import
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+                {isEditing ? "Update Post" : "Post Blog"}
+              </button>
+            </form>
           </div>
 
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileImport}
-            accept=".txt,.md,.doc,.docx"
-            className="hidden"
-          />
-          <button
-            type="button"
-            onClick={handleImportClick}
-            className="bg-green-600 text-white p-2 rounded hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-4 h-4">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7,10 12,15 17,10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-            Import
-          </button>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
-            {isEditing ? "Update Post" : "Post Blog"}
-          </button>
-        </form>
+          <div>
+            <EmailForm />
+            <PasswordForm />
+          </div>
+        </div>
       </main>
     </ProtectedRoute>
   );

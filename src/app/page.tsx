@@ -7,13 +7,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UserMenu from "./components/UserMenu";
 import ThemeToggle from "./components/ThemeToggle";
 import { useAuth } from "./contexts/AuthContext";
+import { getDisplayNames } from "./actions/userActions";
 
 interface Post {
   id: string;
   title: string;
   created_at: string;
   author_id: string;
-  author_email?: string;
+  author_display_name?: string;
   image_url?: string;
 }
 
@@ -25,27 +26,48 @@ export default function HomePage() {
 
   const fetchPosts = useCallback(async () => {
     try {
-      console.log("Fetching posts...");
-      console.log("Current user:", user?.id);
-
-      const { data, error } = await supabase
+      setLoading(true);
+      const { data: postsData, error: postsError } = await supabase
         .from("posts")
         .select("*")
         .order("created_at", { ascending: false });
 
-      console.log("Posts data:", data);
-      console.log("Posts error:", error);
+      if (postsError) {
+        console.error("Supabase error:", postsError);
+        setError("Failed to load posts");
+        return;
+      }
+
+      const authorIds = [
+        ...new Set((postsData || []).map((post) => post.author_id)),
+      ];
+
+      let displayNameMap: Map<string, string>;
+      try {
+        displayNameMap = await getDisplayNames(authorIds);
+      } catch (error) {
+        console.error("Error calling getDisplayNames:", error);
+        displayNameMap = new Map<string, string>();
+        authorIds.forEach((authorId) => {
+          displayNameMap.set(authorId, `User ${authorId.slice(0, 8)}`);
+        });
+      }
+
+      const { data, error } = { data: postsData, error: postsError };
 
       if (error) {
         console.error("Supabase error:", error);
-        setError(error.message);
+        setError("Failed to load posts");
       } else {
-        const postsWithEmails = (data || []).map((post) => ({
-          ...post,
-          author_email: `User ${post.author_id?.slice(0, 8) || "Unknown"}...`,
-        }));
-        console.log("Processed posts:", postsWithEmails);
-        setPosts(postsWithEmails);
+        const postsWithDisplayNames = (data || []).map((post) => {
+          return {
+            ...post,
+            author_display_name:
+              displayNameMap.get(post.author_id) ||
+              `User ${post.author_id?.slice(0, 8) || "Unknown"}`,
+          };
+        });
+        setPosts(postsWithDisplayNames);
       }
     } catch (err) {
       console.error("Catch error:", err);

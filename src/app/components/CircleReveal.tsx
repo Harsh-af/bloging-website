@@ -24,12 +24,10 @@ export default function CircleReveal({
       setIsVisible(true);
       setIsExpanding(false);
 
-      // Start the expansion animation after a brief delay
       const timer = setTimeout(() => {
         setIsExpanding(true);
       }, 10);
 
-      // Complete the animation after the transition
       const completeTimer = setTimeout(() => {
         onAnimationComplete();
         setIsVisible(false);

@@ -10,6 +10,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -21,19 +22,47 @@ export default function SignUpPage() {
     setError("");
     setMessage("");
 
+    // Validate all required fields
+    if (!displayName.trim()) {
+      setError("Display name is required");
+      setLoading(false);
+      return;
+    }
+
+    if (displayName.trim().length < 2) {
+      setError("Display name must be at least 2 characters long");
+      setLoading(false);
+      return;
+    }
+
+    if (!email.trim()) {
+      setError("Email is required");
+      setLoading(false);
+      return;
+    }
+
+    if (!password) {
+      setError("Password is required");
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      setLoading(false);
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       setLoading(false);
       return;
     }
 
-    // Get the current environment URL
     const getRedirectUrl = () => {
       if (typeof window !== "undefined") {
-        // Client-side: use current origin
         return `${window.location.origin}/dashboard`;
       }
-      // Server-side: use environment variable or default to production
       return process.env.NEXT_PUBLIC_SITE_URL
         ? `${process.env.NEXT_PUBLIC_SITE_URL}/dashboard`
         : "https://bloggerblogger.vercel.app/dashboard";
@@ -44,6 +73,9 @@ export default function SignUpPage() {
       password,
       options: {
         emailRedirectTo: getRedirectUrl(),
+        data: {
+          display_name: displayName,
+        },
       },
     });
 
@@ -77,10 +109,42 @@ export default function SignUpPage() {
         <form onSubmit={handleSignUp} className="space-y-4">
           <div>
             <label
+              htmlFor="displayName"
+              className="block text-sm font-medium"
+              style={{ color: "var(--foreground)" }}>
+              Display Name*
+            </label>
+            <p className="text-xs text-gray-500 mb-2">
+              *This will be your public name on all blog posts. Cannot be
+              changed later.
+            </p>
+            <input
+              type="text"
+              id="displayName"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-sm"
+              style={{
+                backgroundColor: "var(--blur-bg)",
+                color: "var(--foreground)",
+                borderColor: "var(--blur-border)",
+                backdropFilter: "blur(8px)",
+                WebkitBackdropFilter: "blur(8px)",
+              }}
+              placeholder="Enter your display name"
+              required
+              minLength={2}
+              maxLength={50}
+              pattern="[A-Za-z0-9\s]+"
+              title="Display name must contain only letters, numbers, and spaces"
+            />
+          </div>
+          <div>
+            <label
               htmlFor="email"
               className="block text-sm font-medium mb-2"
               style={{ color: "var(--foreground)" }}>
-              Email
+              Email*
             </label>
             <input
               type="email"
@@ -104,7 +168,7 @@ export default function SignUpPage() {
               htmlFor="password"
               className="block text-sm font-medium mb-2"
               style={{ color: "var(--foreground)" }}>
-              Password
+              Password*
             </label>
             <input
               type="password"
@@ -129,7 +193,7 @@ export default function SignUpPage() {
               htmlFor="confirmPassword"
               className="block text-sm font-medium mb-2"
               style={{ color: "var(--foreground)" }}>
-              Confirm Password
+              Confirm Password*
             </label>
             <input
               type="password"

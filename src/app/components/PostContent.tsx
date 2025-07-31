@@ -14,6 +14,7 @@ interface PostContentProps {
     created_at: string;
     author_id: string;
     image_url?: string;
+    author_display_name?: string;
   };
 }
 
@@ -57,9 +58,15 @@ export default function PostContent({ post }: PostContentProps) {
           </Link>
         </div>
       </div>
-      <p className="text-sm mb-4" style={{ color: "var(--muted-text)" }}>
-        {new Date(post.created_at).toLocaleDateString()}
-      </p>
+      <div className="mb-4">
+        <p className="text-sm" style={{ color: "var(--muted-text)" }}>
+          By:{" "}
+          {post.author_display_name || `User ${post.author_id?.slice(0, 8)}`}
+        </p>
+        <p className="text-sm" style={{ color: "var(--muted-text)" }}>
+          {new Date(post.created_at).toLocaleDateString()}
+        </p>
+      </div>
       {post.image_url && (
         <div className="mb-15 flex justify-center">
           <Image

@@ -15,7 +15,10 @@ export default function UserMenu() {
   return (
     <div className="flex items-center gap-4">
       <p className="text-sm" style={{ color: "var(--foreground)" }}>
-        ようこそ、<span className="font-bold">{user?.email}</span>
+        ようこそ、
+        <span className="font-bold">
+          {user?.user_metadata?.display_name || user?.email}
+        </span>
       </p>
       <button
         onClick={handleSignOut}
