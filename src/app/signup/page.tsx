@@ -27,9 +27,24 @@ export default function SignUpPage() {
       return;
     }
 
+    // Get the current environment URL
+    const getRedirectUrl = () => {
+      if (typeof window !== "undefined") {
+        // Client-side: use current origin
+        return `${window.location.origin}/dashboard`;
+      }
+      // Server-side: use environment variable or default to production
+      return process.env.NEXT_PUBLIC_SITE_URL
+        ? `${process.env.NEXT_PUBLIC_SITE_URL}/dashboard`
+        : "https://bloggerblogger.vercel.app/dashboard";
+    };
+
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: getRedirectUrl(),
+      },
     });
 
     if (error) {
