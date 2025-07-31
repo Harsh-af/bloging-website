@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 import { useAuth } from "../contexts/AuthContext";
@@ -32,9 +33,11 @@ export default function BlogPostItem({ post }: BlogPostItemProps) {
         <div className="flex gap-4">
           {post.image_url && (
             <div className="flex-shrink-0">
-              <img
+              <Image
                 src={post.image_url}
                 alt={post.title}
+                width={80}
+                height={80}
                 className="w-20 h-20 object-cover rounded"
               />
             </div>

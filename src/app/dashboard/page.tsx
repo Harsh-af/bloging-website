@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, Suspense, useRef } from "react";
 import { supabase } from "../supabaseClient";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -264,9 +265,11 @@ function DashboardContent() {
               }}>
               {imageUrl ? (
                 <div className="w-full">
-                  <img
+                  <Image
                     src={imageUrl}
                     alt="Preview"
+                    width={400}
+                    height={128}
                     className="w-full h-32 object-cover rounded"
                   />
                   <p

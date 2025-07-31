@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { supabase } from "../../supabaseClient";
 import Link from "next/link";
 import ProtectedRoute from "../../components/ProtectedRoute";
@@ -62,9 +63,11 @@ export default async function PostPage({
         </p>
         {post.image_url && (
           <div className="mb-6">
-            <img
+            <Image
               src={post.image_url}
               alt={post.title}
+              width={800}
+              height={384}
               className="w-full max-h-96 object-cover rounded-lg shadow-lg"
             />
           </div>

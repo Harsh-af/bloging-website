@@ -47,12 +47,10 @@ body {
   font-style: normal;
 }
 
-/* Custom duration for circle reveal animation */
 .duration-800 {
   transition-duration: 800ms;
 }
 
-/* Custom scale for circle reveal animation */
 .scale-\[100\] {
   transform: scale(100);
 }
