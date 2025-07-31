@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { supabase } from "./supabaseClient";
 import BlogPostItem from "./components/BlogPostItem";
 import ProtectedRoute from "./components/ProtectedRoute";
-import UserMenu from "./components/UserMenu";
+import HamburgerMenu from "./components/HamburgerMenu";
 import ThemeToggle from "./components/ThemeToggle";
 import { useAuth } from "./contexts/AuthContext";
 import { getDisplayNames } from "./actions/userActions";
@@ -22,6 +22,7 @@ export default function HomePage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [userDisplayName, setUserDisplayName] = useState("");
   const { user } = useAuth();
 
   const fetchPosts = useCallback(async () => {
@@ -80,8 +81,27 @@ export default function HomePage() {
   useEffect(() => {
     if (user) {
       fetchPosts();
+      fetchUserDisplayName();
     }
   }, [user, fetchPosts]);
+
+  const fetchUserDisplayName = async () => {
+    if (!user?.id) return;
+
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .select("display_name")
+        .eq("id", user.id)
+        .single();
+
+      if (!error && data) {
+        setUserDisplayName(data.display_name);
+      }
+    } catch (err) {
+      console.error("Error fetching user display name:", err);
+    }
+  };
 
   return (
     <ProtectedRoute>
@@ -93,10 +113,10 @@ export default function HomePage() {
         </h1>
         <div className="flex justify-between items-center w-full mb-6">
           <div className="flex flex-col gap-3">
-            <p
-              className="font-bold dm-serif-display-regular"
-              style={{ color: "var(--foreground)" }}>
-              こんにちは！
+            <p style={{ color: "var(--foreground)" }}>
+              こんにちは{" "}
+              <span className="font-bold">{userDisplayName || `User ${user?.id?.slice(0, 8)}`}</span>
+              さん!
             </p>
             <a
               href="/dashboard"
@@ -116,9 +136,9 @@ export default function HomePage() {
               </svg>
             </a>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <ThemeToggle />
-            <UserMenu />
+            <HamburgerMenu />
           </div>
         </div>
         <div className="mt-10">

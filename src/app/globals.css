@@ -16,6 +16,7 @@
   --blur-bg: rgba(255, 255, 255, 0.1);
   --blur-border: rgba(107, 114, 128, 0.5);
   --muted-text: #6b7280;
+  --hover-bg: rgba(229, 231, 235, 0.8);
 }
 
 .dark {
@@ -26,6 +27,7 @@
   --blur-bg: rgba(0, 0, 0, 0.2);
   --blur-border: rgba(55, 65, 81, 0.3);
   --muted-text: #9ca3af;
+  --hover-bg: rgba(55, 65, 81, 0.8);
 }
 
 body {

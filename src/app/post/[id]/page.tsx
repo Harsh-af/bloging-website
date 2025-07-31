@@ -23,9 +23,21 @@ export default async function PostPage({
     );
   }
 
+  // Fetch the author's display name
+  const { data: userData } = await supabase
+    .from("users")
+    .select("display_name")
+    .eq("id", post.author_id)
+    .single();
+
+  const postWithDisplayName = {
+    ...post,
+    author_display_name: userData?.display_name || post.author_id?.slice(0, 8),
+  };
+
   return (
     <ProtectedRoute>
-      <PostContent post={post} />
+      <PostContent post={postWithDisplayName} />
     </ProtectedRoute>
   );
 }

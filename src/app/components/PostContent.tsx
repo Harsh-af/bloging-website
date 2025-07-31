@@ -60,8 +60,7 @@ export default function PostContent({ post }: PostContentProps) {
       </div>
       <div className="mb-4">
         <p className="text-sm" style={{ color: "var(--muted-text)" }}>
-          By:{" "}
-          {post.author_display_name || `User ${post.author_id?.slice(0, 8)}`}
+          By: {post.author_display_name || post.author_id?.slice(0, 8)}
         </p>
         <p className="text-sm" style={{ color: "var(--muted-text)" }}>
           {new Date(post.created_at).toLocaleDateString()}

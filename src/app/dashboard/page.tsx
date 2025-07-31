@@ -9,8 +9,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import ThemeToggle from "../components/ThemeToggle";
 import MarkdownEditor from "../components/MarkdownEditor";
 import MarkdownHelp from "../components/MarkdownHelp";
-import EmailForm from "../components/EmailForm";
-import PasswordForm from "../components/PasswordForm";
+import HamburgerMenu from "../components/HamburgerMenu";
 
 function DashboardContent() {
   const [title, setTitle] = useState("");
@@ -198,6 +197,7 @@ function DashboardContent() {
           </h1>
           <div className="flex items-center gap-4">
             <ThemeToggle />
+            <HamburgerMenu />
             <Link
               href="/"
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
@@ -334,9 +334,8 @@ function DashboardContent() {
             </form>
           </div>
 
-          <div>
-            <EmailForm />
-            <PasswordForm />
+          <div className="flex justify-end mt-4">
+            <HamburgerMenu />
           </div>
         </div>
       </main>
