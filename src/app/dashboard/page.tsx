@@ -7,6 +7,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ProtectedRoute from "../components/ProtectedRoute";
 import ThemeToggle from "../components/ThemeToggle";
+import MarkdownEditor from "../components/MarkdownEditor";
+import MarkdownHelp from "../components/MarkdownHelp";
 
 function DashboardContent() {
   const [title, setTitle] = useState("");
@@ -223,19 +225,11 @@ function DashboardContent() {
             }}
             required
           />
-          <textarea
-            placeholder="Post Content"
+          <MarkdownHelp />
+          <MarkdownEditor
             value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="border p-2 rounded min-h-[150px] backdrop-blur-sm"
-            style={{
-              backgroundColor: "var(--blur-bg)",
-              color: "var(--foreground)",
-              borderColor: "var(--blur-border)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
-            }}
-            required
+            onChange={setContent}
+            placeholder="Write your blog post in Markdown..."
           />
 
           {/* Image Upload Section */}

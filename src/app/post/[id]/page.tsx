@@ -2,6 +2,7 @@ import Image from "next/image";
 import { supabase } from "../../supabaseClient";
 import Link from "next/link";
 import ProtectedRoute from "../../components/ProtectedRoute";
+import MarkdownRenderer from "../../components/MarkdownRenderer";
 
 export default async function PostPage({
   params,
@@ -72,11 +73,7 @@ export default async function PostPage({
             />
           </div>
         )}
-        <div
-          className="prose max-w-none"
-          style={{ color: "var(--foreground)" }}>
-          {post.content}
-        </div>
+        <MarkdownRenderer content={post.content} />
       </main>
     </ProtectedRoute>
   );
