@@ -154,7 +154,7 @@ export default function ManageBlogsPage() {
           ) : (
             <div className="text-center py-8">
               <p style={{ color: "var(--foreground)" }} className="mb-4">
-                You haven't written any blogs yet.
+                You haven&apos;t written any blogs yet.
               </p>
               <Link
                 href="/dashboard"
