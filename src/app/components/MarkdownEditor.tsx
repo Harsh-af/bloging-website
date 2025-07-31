@@ -105,72 +105,112 @@ function MarkdownPreview({ content }: { content: string }) {
     );
   }
 
-  return (
-    <div className="markdown-preview">
-      {content.split("\n").map((line, index) => {
-        // Simple markdown parsing for preview
-        if (line.startsWith("# ")) {
-          return (
-            <h1 key={index} className="text-2xl font-bold mb-2">
-              {line.substring(2)}
-            </h1>
-          );
-        }
-        if (line.startsWith("## ")) {
-          return (
-            <h2 key={index} className="text-xl font-bold mb-2">
-              {line.substring(3)}
-            </h2>
-          );
-        }
-        if (line.startsWith("### ")) {
-          return (
-            <h3 key={index} className="text-lg font-bold mb-2">
-              {line.substring(4)}
-            </h3>
-          );
-        }
-        if (line.startsWith("**") && line.endsWith("**")) {
-          return (
-            <p key={index} className="mb-2">
-              <strong>{line.substring(2, line.length - 2)}</strong>
-            </p>
-          );
-        }
-        if (
-          line.startsWith("*") &&
-          line.endsWith("*") &&
-          !line.startsWith("**")
-        ) {
-          return (
-            <p key={index} className="mb-2">
-              <em>{line.substring(1, line.length - 1)}</em>
-            </p>
-          );
-        }
-        if (line.startsWith("- ")) {
-          return (
-            <li key={index} className="ml-4 mb-1">
-              • {line.substring(2)}
-            </li>
-          );
-        }
-        if (line.startsWith("1. ")) {
-          return (
-            <li key={index} className="ml-4 mb-1">
-              {index + 1}. {line.substring(3)}
-            </li>
-          );
-        }
-        if (line.trim() === "") {
-          return <br key={index} />;
-        }
-        return (
-          <p key={index} className="mb-2">
-            {line}
-          </p>
+  const lines = content.split("\n");
+  const elements = [];
+  let inCodeBlock = false;
+  let codeBlockContent = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Check for code block start/end
+    if (line.trim().startsWith("```")) {
+      if (inCodeBlock) {
+        // End of code block
+        elements.push(
+          <pre
+            key={`code-${i}`}
+            className="p-4 rounded-lg overflow-x-auto my-4 bg-gray-100 border border-gray-300">
+            <code className="text-xs font-mono block w-full text-gray-700">
+              {codeBlockContent.join("\n")}
+            </code>
+          </pre>
         );
-      })}
-    </div>
-  );
+        inCodeBlock = false;
+        codeBlockContent = [];
+      } else {
+        // Start of code block
+        inCodeBlock = true;
+      }
+      continue;
+    }
+
+    if (inCodeBlock) {
+      // Add line to code block
+      codeBlockContent.push(line);
+      continue;
+    }
+
+    // Regular markdown parsing
+    if (line.startsWith("# ")) {
+      elements.push(
+        <h1 key={i} className="text-2xl font-bold mb-2">
+          {line.substring(2)}
+        </h1>
+      );
+    } else if (line.startsWith("## ")) {
+      elements.push(
+        <h2 key={i} className="text-xl font-bold mb-2">
+          {line.substring(3)}
+        </h2>
+      );
+    } else if (line.startsWith("### ")) {
+      elements.push(
+        <h3 key={i} className="text-lg font-bold mb-2">
+          {line.substring(4)}
+        </h3>
+      );
+    } else if (line.startsWith("**") && line.endsWith("**")) {
+      elements.push(
+        <p key={i} className="mb-2">
+          <strong>{line.substring(2, line.length - 2)}</strong>
+        </p>
+      );
+    } else if (
+      line.startsWith("*") &&
+      line.endsWith("*") &&
+      !line.startsWith("**")
+    ) {
+      elements.push(
+        <p key={i} className="mb-2">
+          <em>{line.substring(1, line.length - 1)}</em>
+        </p>
+      );
+    } else if (line.startsWith("- ")) {
+      elements.push(
+        <li key={i} className="ml-4 mb-1">
+          • {line.substring(2)}
+        </li>
+      );
+    } else if (line.startsWith("1. ")) {
+      elements.push(
+        <li key={i} className="ml-4 mb-1">
+          {i + 1}. {line.substring(3)}
+        </li>
+      );
+    } else if (line.trim() === "") {
+      elements.push(<br key={i} />);
+    } else {
+      elements.push(
+        <p key={i} className="mb-2">
+          {line}
+        </p>
+      );
+    }
+  }
+
+  // Handle any remaining code block
+  if (inCodeBlock && codeBlockContent.length > 0) {
+    elements.push(
+      <pre
+        key="code-final"
+        className="p-4 rounded-lg overflow-x-auto my-4 bg-gray-100 border border-gray-300">
+        <code className="text-xs font-mono block w-full text-gray-700">
+          {codeBlockContent.join("\n")}
+        </code>
+      </pre>
+    );
+  }
+
+  return <div className="markdown-preview">{elements}</div>;
 }
