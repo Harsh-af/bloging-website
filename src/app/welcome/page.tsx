@@ -13,8 +13,7 @@ export default function WelcomePage() {
         <h1
           className="text-[80px] font-bold mb-8 dm-serif-display-regular"
           style={{ color: "var(--foreground)" }}>
-          Welcome to{" "}
-          <span style={{ color: "var(--foreground)" }}>Blogger.</span>
+          Welcome to <span className="text-gray-500">Blogger.</span>
         </h1>
         <div className="flex gap-4 justify-center">
           <Link
