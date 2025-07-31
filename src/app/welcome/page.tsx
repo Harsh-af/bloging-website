@@ -19,12 +19,12 @@ export default function WelcomePage() {
           <Link
             href="/signin"
             className="border-blue-600 border-[1px] px-8 py-3 rounded-lg hover:bg-blue-700 hover:text-white transition-colors font-medium text-foreground">
-            ログイン
+            Sign In
           </Link>
           <Link
             href="/signup"
             className="border-green-600 border-[1px] px-8 py-3 rounded-lg hover:bg-green-700 hover:text-white transition-colors font-medium text-foreground">
-            新規登録
+            Sign up
           </Link>
         </div>
       </div>

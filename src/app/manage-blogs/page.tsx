@@ -78,11 +78,12 @@ export default function ManageBlogsPage() {
           </div>
           <a
             href="/dashboard"
-            className="inline-flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            新しいブログを書く
+            className="inline-flex items-center font-bold gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-fit"
+            style={{ width: "fit-content" }}>
+            Post a new Blog
             <svg
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"

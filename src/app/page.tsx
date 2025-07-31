@@ -114,17 +114,18 @@ export default function HomePage() {
         <div className="flex justify-between items-center w-full mb-6">
           <div className="flex flex-col gap-3">
             <p style={{ color: "var(--foreground)" }}>
-              こんにちは{" "}
+              Welcome{" "}
               <span className="font-bold">{userDisplayName || `User ${user?.id?.slice(0, 8)}`}</span>
-              さん!
             </p>
             <a
               href="/dashboard"
-              className="inline-flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-              新しいブログを書く
+              className="inline-flex items-center font-bold gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-fit"
+              style={{ width: "fit-content" }}
+            >
+              Post a new Blog
               <svg
-                width="24"
-                height="24"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -141,11 +142,11 @@ export default function HomePage() {
             <HamburgerMenu />
           </div>
         </div>
-        <div className="mt-10">
+        <div className="mt-7">
           <p
             className="font-bold text-left block mb-3"
             style={{ color: "var(--foreground)" }}>
-            ブログ:
+            Blogs:
           </p>
           {loading ? (
             <div className="text-center py-8">
