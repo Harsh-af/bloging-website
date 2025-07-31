@@ -119,7 +119,7 @@ export default function HomePage() {
             </p>
             <a
               href="/dashboard"
-              className="inline-flex items-center font-bold gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-fit"
+              className="inline-flex items-center font-semibold gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-fit"
               style={{ width: "fit-content" }}
             >
               Post a new Blog
@@ -129,7 +129,7 @@ export default function HomePage() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="3"
                 strokeLinecap="round"
                 strokeLinejoin="round">
                 <path d="M5 12h14" />
