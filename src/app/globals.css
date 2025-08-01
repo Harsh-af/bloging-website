@@ -49,6 +49,10 @@ body {
   body {
     background-image: var(--background-image-mobile) !important;
     background: var(--background) !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
   }
 }
 
@@ -56,6 +60,21 @@ body {
 @media screen and (max-width: 768px) {
   body {
     background-image: var(--background-image-mobile) !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+  }
+}
+
+/* Force mobile background for all mobile devices */
+@media (max-width: 768px), (max-width: 767px) {
+  html, body {
+    background-image: var(--background-image-mobile) !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
   }
 }
 

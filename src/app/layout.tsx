@@ -32,6 +32,33 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function setMobileBackground() {
+                  if (window.innerWidth <= 768) {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    const mobileBg = isDark 
+                      ? 'url("/background-black_iPhone 14 & 15 Pro Max.png?v=1")'
+                      : 'url("/background-white_iPhone 14 & 15 Pro Max.png?v=1")';
+                    document.body.style.backgroundImage = mobileBg;
+                    document.body.style.backgroundSize = 'contain';
+                    document.body.style.backgroundPosition = 'center';
+                    document.body.style.backgroundRepeat = 'no-repeat';
+                    document.body.style.backgroundAttachment = 'fixed';
+                  }
+                }
+                setMobileBackground();
+                window.addEventListener('resize', setMobileBackground);
+                // Re-apply after React loads
+                setTimeout(setMobileBackground, 100);
+                setTimeout(setMobileBackground, 500);
+                setTimeout(setMobileBackground, 1000);
+              })();
+            `,
+          }}
+        />
       </head>
       <body
         className={`${poppins.variable} ${dmSerifDisplay.variable} antialiased`}>
