@@ -55,7 +55,9 @@ export default function BlogPostItem({ post }: BlogPostItemProps) {
               <p>By: {post.author_display_name}</p>
               <p>{new Date(post.created_at).toLocaleDateString()}</p>
               {post.content && (
-                <p className="line-clamp-3 mt-2">
+                <p
+                  className="line-clamp-3 mt-2"
+                  style={{ color: "var(--foreground)" }}>
                   {post.content
                     .replace(/#{1,6}\s+/g, "") // Remove headings
                     .replace(/\*\*(.*?)\*\*/g, "$1") // Remove bold

@@ -130,8 +130,23 @@ export default function ManageBlogsPage() {
                       <div
                         className="text-xs sm:text-sm transition-colors duration-200 group-hover:text-gray-300 mt-1"
                         style={{ color: "var(--muted-text)" }}>
-                        <p className="line-clamp-2">
-                          {post.content.substring(0, 150)}
+                        <p
+                          className="line-clamp-2"
+                          style={{ color: "var(--foreground)" }}>
+                          {post.content
+                            .replace(/#{1,6}\s+/g, "") // Remove headings
+                            .replace(/\*\*(.*?)\*\*/g, "$1") // Remove bold
+                            .replace(/\*(.*?)\*/g, "$1") // Remove italic
+                            .replace(/`(.*?)`/g, "$1") // Remove inline code
+                            .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // Remove links, keep text
+                            .replace(/!\[([^\]]*)\]\([^)]+\)/g, "") // Remove images
+                            .replace(/```[\s\S]*?```/g, "") // Remove code blocks
+                            .replace(/^\s*[-*+]\s+/gm, "") // Remove list markers
+                            .replace(/^\s*\d+\.\s+/gm, "") // Remove numbered list markers
+                            .replace(/^\s*>\s+/gm, "") // Remove blockquotes
+                            .replace(/\n+/g, " ") // Replace multiple newlines with single space
+                            .trim()
+                            .substring(0, 150)}
                           {post.content.length > 150 ? "..." : ""}
                         </p>
                         <p>
