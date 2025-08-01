@@ -42,19 +42,48 @@ export default function RootLayout({
                     const mobileBg = isDark 
                       ? 'url("/background-black_iPhone 14 & 15 Pro Max.png?v=1")'
                       : 'url("/background-white_iPhone 14 & 15 Pro Max.png?v=1")';
-                    document.body.style.backgroundImage = mobileBg;
-                    document.body.style.backgroundSize = 'contain';
-                    document.body.style.backgroundPosition = 'center';
-                    document.body.style.backgroundRepeat = 'no-repeat';
-                    document.body.style.backgroundAttachment = 'fixed';
+                    
+                    // Apply to multiple elements to ensure it sticks
+                    const elements = [document.documentElement, document.body, document.getElementById('__next')];
+                    elements.forEach(el => {
+                      if (el) {
+                        el.style.backgroundImage = mobileBg;
+                        el.style.backgroundSize = 'contain';
+                        el.style.backgroundPosition = 'center';
+                        el.style.backgroundRepeat = 'no-repeat';
+                        el.style.backgroundAttachment = 'fixed';
+                      }
+                    });
                   }
                 }
+                
+                // Apply immediately
                 setMobileBackground();
+                
+                // Apply on resize
                 window.addEventListener('resize', setMobileBackground);
-                // Re-apply after React loads
+                
+                // Apply multiple times after React loads
+                setTimeout(setMobileBackground, 50);
                 setTimeout(setMobileBackground, 100);
+                setTimeout(setMobileBackground, 200);
                 setTimeout(setMobileBackground, 500);
                 setTimeout(setMobileBackground, 1000);
+                setTimeout(setMobileBackground, 2000);
+                
+                // Apply on DOM content loaded
+                document.addEventListener('DOMContentLoaded', setMobileBackground);
+                
+                // Apply on window load
+                window.addEventListener('load', setMobileBackground);
+                
+                // Apply periodically for the first few seconds
+                let count = 0;
+                const interval = setInterval(() => {
+                  setMobileBackground();
+                  count++;
+                  if (count > 10) clearInterval(interval);
+                }, 200);
               })();
             `,
           }}

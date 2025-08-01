@@ -46,7 +46,7 @@ body {
 
 /* Use mobile-specific background images for smartphone view */
 @media (max-width: 768px) {
-  body {
+  html, body, #__next, main {
     background-image: var(--background-image-mobile) !important;
     background: var(--background) !important;
     background-size: contain !important;
@@ -58,7 +58,7 @@ body {
 
 /* Additional mobile-specific rules to ensure proper background */
 @media screen and (max-width: 768px) {
-  body {
+  html, body, #__next, main {
     background-image: var(--background-image-mobile) !important;
     background-size: contain !important;
     background-position: center !important;
@@ -69,7 +69,18 @@ body {
 
 /* Force mobile background for all mobile devices */
 @media (max-width: 768px), (max-width: 767px) {
-  html, body {
+  html, body, #__next, main {
+    background-image: var(--background-image-mobile) !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+  }
+}
+
+/* Additional mobile breakpoints for better coverage */
+@media (max-width: 767px), (max-width: 480px), (max-width: 375px) {
+  html, body, #__next, main {
     background-image: var(--background-image-mobile) !important;
     background-size: contain !important;
     background-position: center !important;
