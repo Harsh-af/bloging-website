@@ -110,15 +110,11 @@ export default function SignUpPage() {
         <form onSubmit={handleSignUp} className="space-y-4">
           <div>
             <label
-              htmlFor="displayName"
-              className="block text-sm font-medium"
+              htmlFor="email"
+              className="block text-sm font-medium mb-2"
               style={{ color: "var(--foreground)" }}>
-              Display Name*
+              Display name*
             </label>
-            <p className="text-xs text-gray-500 mb-2">
-              *This will be your public name on all blog posts. Cannot be
-              changed later.
-            </p>
             <input
               type="text"
               id="displayName"
@@ -143,10 +139,13 @@ export default function SignUpPage() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium mb-2"
+              className="block text-sm font-medium"
               style={{ color: "var(--foreground)" }}>
               Email*
             </label>
+            <p className="text-xs text-gray-500 mb-2">
+              *Email can <b>not</b> be changed later.
+            </p>
             <input
               type="email"
               id="email"
