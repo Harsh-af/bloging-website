@@ -37,8 +37,7 @@ export default function PostContent({ post }: PostContentProps) {
           {isOwnPost && (
             <Link
               href={`/dashboard?edit=${post.id}`}
-              className="bg-green-600 text-white px-3 sm:px-4 py-2 rounded hover:bg-green-700 transition-colors inline-flex items-center gap-2 text-sm sm:text-base">
-              Edit Blog
+              className="bg-green-600 text-white px-3 sm:px-4 py-2 rounded hover:bg-green-700 transition-colors inline-flex items-center text-sm">
               <svg
                 width="16"
                 height="16"
@@ -47,16 +46,31 @@ export default function PostContent({ post }: PostContentProps) {
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
-                strokeLinejoin="round">
+                strokeLinejoin="round"
+                className="mr-1">
                 <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
                 <path d="m15 5 4 4" />
               </svg>
+              Edit Blog
             </Link>
           )}
           <Link
             href="/"
-            className="hidden sm:inline-flex bg-blue-600 text-white px-3 sm:px-4 py-2 rounded hover:bg-blue-700 transition-colors text-sm sm:text-base">
-            ← Back to Home
+            className="hidden sm:inline-flex items-center bg-blue-600 text-white px-3 sm:px-4 py-2 rounded hover:bg-blue-700 transition-colors text-sm">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mr-1">
+              <path d="M19 12H5" />
+              <path d="M12 19l-7-7 7-7" />
+            </svg>
+            Back to Home
           </Link>
         </div>
       </div>
