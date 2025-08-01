@@ -9,8 +9,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --background-image: url('/background-white.png');
-  --background-image-mobile: url('/background-white_iPhone 14 & 15 Pro Max.png');
+  --background-image: url('/background-white.png?v=1');
+  --background-image-mobile: url('/background-white_iPhone 14 & 15 Pro Max.png?v=1');
   --theme-border: #d1d5db;
   --blur-bg: rgba(255, 255, 255, 0.1);
   --blur-border: rgba(107, 114, 128, 0.5);
@@ -22,8 +22,8 @@
 .dark {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --background-image: url('/background.png');
-  --background-image-mobile: url('/background-black_iPhone 14 & 15 Pro Max.png');
+  --background-image: url('/background.png?v=1');
+  --background-image-mobile: url('/background-black_iPhone 14 & 15 Pro Max.png?v=1');
   --theme-border: #374151;
   --blur-bg: rgba(0, 0, 0, 0.2);
   --blur-border: rgba(55, 65, 81, 0.3);
@@ -47,7 +47,15 @@ body {
 /* Use mobile-specific background images for smartphone view */
 @media (max-width: 768px) {
   body {
-    background-image: var(--background-image-mobile);
+    background-image: var(--background-image-mobile) !important;
+    background: var(--background) !important;
+  }
+}
+
+/* Additional mobile-specific rules to ensure proper background */
+@media screen and (max-width: 768px) {
+  body {
+    background-image: var(--background-image-mobile) !important;
   }
 }
 
