@@ -5,6 +5,7 @@ import { supabase } from "../supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ThemeToggle from "../components/ThemeToggle";
+import { ButtonSkeleton } from "../components/SkeletonLoader";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
@@ -97,7 +98,7 @@ export default function SignUpPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1
-            className="text-[50px] font-bold mb-4 dm-serif-display-regular"
+            className="text-[50px] font-semibold mb-4 dm-serif-display-regular"
             style={{ color: "var(--foreground)" }}>
             Sign Up
           </h1>
@@ -228,12 +229,18 @@ export default function SignUpPage() {
             </div>
           )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50">
-            {loading ? "Creating Account..." : "Sign Up"}
-          </button>
+          {loading ? (
+            <ButtonSkeleton
+              className="w-full bg-green-600"
+              text="Creating Account..."
+            />
+          ) : (
+            <button
+              type="submit"
+              className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">
+              Sign Up
+            </button>
+          )}
         </form>
 
         <div className="text-center mt-6">

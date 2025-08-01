@@ -10,6 +10,11 @@ import ThemeToggle from "../components/ThemeToggle";
 import MarkdownEditor from "../components/MarkdownEditor";
 import MarkdownHelp from "../components/MarkdownHelp";
 import HamburgerMenu from "../components/HamburgerMenu";
+import {
+  ImageUploadSkeleton,
+  FormSkeleton,
+  PageSkeleton,
+} from "../components/SkeletonLoader";
 
 function DashboardContent() {
   const [title, setTitle] = useState("");
@@ -191,7 +196,7 @@ function DashboardContent() {
       <main className="px-30 py-10">
         <div className="flex justify-between items-center mb-6">
           <h1
-            className="text-[50px] font-bold dm-serif-display-regular"
+            className="text-[50px] font-semibold dm-serif-display-regular"
             style={{ color: "var(--foreground)" }}>
             {isEditing ? "Edit Post" : "Create a new Post"}
           </h1>
@@ -207,11 +212,6 @@ function DashboardContent() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
-            <h2
-              className="text-xl font-semibold mb-4"
-              style={{ color: "var(--foreground)" }}>
-              Create New Post
-            </h2>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <input
                 type="text"
@@ -275,6 +275,8 @@ function DashboardContent() {
                         Click to change image
                       </p>
                     </div>
+                  ) : uploading ? (
+                    <ImageUploadSkeleton />
                   ) : (
                     <>
                       <svg
@@ -292,7 +294,7 @@ function DashboardContent() {
                         <line x1="12" y1="15" x2="12" y2="3" />
                       </svg>
                       <span style={{ color: "var(--muted-text)" }}>
-                        {uploading ? "Uploading..." : "Click to upload image"}
+                        Click to upload image
                       </span>
                     </>
                   )}
@@ -324,7 +326,7 @@ function DashboardContent() {
                   <polyline points="7,10 12,15 17,10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                Import
+                Import Blog
               </button>
               <button
                 type="submit"
@@ -334,9 +336,7 @@ function DashboardContent() {
             </form>
           </div>
 
-          <div className="flex justify-end mt-4">
-            <HamburgerMenu />
-          </div>
+          <div className="flex justify-end mt-4"></div>
         </div>
       </main>
     </ProtectedRoute>
@@ -345,7 +345,7 @@ function DashboardContent() {
 
 export default function DashboardPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<PageSkeleton />}>
       <DashboardContent />
     </Suspense>
   );

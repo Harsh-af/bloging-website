@@ -44,7 +44,7 @@ export default function BlogPostItem({ post }: BlogPostItemProps) {
           )}
           <div className="flex-1">
             <div
-              className="font-bold transition-colors duration-200 group-hover:text-white"
+              className="font-semibold transition-colors duration-200 group-hover:text-white"
               style={{ color: "var(--foreground)" }}>
               {post.title}
             </div>

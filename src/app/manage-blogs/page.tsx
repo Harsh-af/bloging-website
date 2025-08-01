@@ -10,6 +10,7 @@ import HamburgerMenu from "../components/HamburgerMenu";
 import { useAuth } from "../contexts/AuthContext";
 import EditButton from "../components/EditButton";
 import DeleteButton from "../components/DeleteButton";
+import { BlogListSkeleton } from "../components/SkeletonLoader";
 
 interface BlogPost {
   id: string;
@@ -62,7 +63,7 @@ export default function ManageBlogsPage() {
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-between items-center mb-8">
             <h1
-              className="text-[50px] font-bold dm-serif-display-regular"
+              className="text-[50px] font-semibold dm-serif-display-regular"
               style={{ color: "var(--foreground)" }}>
               Manage Your Blogs
             </h1>
@@ -104,12 +105,7 @@ export default function ManageBlogsPage() {
           )}
 
           {loading ? (
-            <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p style={{ color: "var(--foreground)" }}>
-                Loading your posts...
-              </p>
-            </div>
+            <BlogListSkeleton />
           ) : posts.length > 0 ? (
             <div className="space-y-4 mt-6">
               {posts.map((post) => (
@@ -124,7 +120,7 @@ export default function ManageBlogsPage() {
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
                       <h2
-                        className="text-xl font-bold mb-2"
+                        className="text-xl font-semibold mb-2"
                         style={{ color: "var(--foreground)" }}>
                         {post.title}
                       </h2>

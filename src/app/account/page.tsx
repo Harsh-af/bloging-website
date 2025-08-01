@@ -8,6 +8,7 @@ import ThemeToggle from "../components/ThemeToggle";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { useAuth } from "../contexts/AuthContext";
 import { updateDisplayName } from "../actions/userActions";
+import { ButtonSkeleton } from "../components/SkeletonLoader";
 
 export default function AccountPage() {
   const [newEmail, setNewEmail] = useState("");
@@ -124,7 +125,7 @@ export default function AccountPage() {
         <div className="max-w-2xl mx-auto">
           <div className="flex justify-between items-center mb-8">
             <h1
-              className="text-[50px] font-bold dm-serif-display-regular"
+              className="text-[50px] font-semibold dm-serif-display-regular"
               style={{ color: "var(--foreground)" }}>
               Account Settings
             </h1>
@@ -163,7 +164,7 @@ export default function AccountPage() {
                 borderColor: "var(--blur-border)",
               }}>
               <h2
-                className="text-xl font-bold mb-4"
+                className="text-xl font-semibold mb-4"
                 style={{ color: "var(--foreground)" }}>
                 Current Account
               </h2>
@@ -185,7 +186,7 @@ export default function AccountPage() {
                 borderColor: "var(--blur-border)",
               }}>
               <h2
-                className="text-xl font-bold mb-4"
+                className="text-xl font-semibold mb-4"
                 style={{ color: "var(--foreground)" }}>
                 Change Email Address
               </h2>
@@ -211,12 +212,15 @@ export default function AccountPage() {
                     required
                   />
                 </div>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors disabled:opacity-50">
-                  {loading ? "Updating..." : "Update Email"}
-                </button>
+                {loading ? (
+                  <ButtonSkeleton className="bg-blue-600" text="Updating..." />
+                ) : (
+                  <button
+                    type="submit"
+                    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
+                    Update Email
+                  </button>
+                )}
               </form>
             </div>
 
@@ -228,7 +232,7 @@ export default function AccountPage() {
                 borderColor: "var(--blur-border)",
               }}>
               <h2
-                className="text-xl font-bold mb-4"
+                className="text-xl font-semibold mb-4"
                 style={{ color: "var(--foreground)" }}>
                 Change Password
               </h2>
@@ -276,12 +280,15 @@ export default function AccountPage() {
                     required
                   />
                 </div>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition-colors disabled:opacity-50">
-                  {loading ? "Updating..." : "Update Password"}
-                </button>
+                {loading ? (
+                  <ButtonSkeleton className="bg-green-600" text="Updating..." />
+                ) : (
+                  <button
+                    type="submit"
+                    className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition-colors">
+                    Update Password
+                  </button>
+                )}
               </form>
             </div>
 
@@ -293,7 +300,7 @@ export default function AccountPage() {
                 borderColor: "var(--blur-border)",
               }}>
               <h2
-                className="text-xl font-bold mb-4"
+                className="text-xl font-semibold mb-4"
                 style={{ color: "var(--foreground)" }}>
                 Change Display Name
               </h2>
@@ -323,12 +330,15 @@ export default function AccountPage() {
                     title="Display name must contain only letters, numbers, and spaces"
                   />
                 </div>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition-colors disabled:opacity-50">
-                  {loading ? "Updating..." : "Update Display Name"}
-                </button>
+                {loading ? (
+                  <ButtonSkeleton className="bg-purple-600" text="Updating..." />
+                ) : (
+                  <button
+                    type="submit"
+                    className="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition-colors">
+                    Update Display Name
+                  </button>
+                )}
               </form>
             </div>
           </div>

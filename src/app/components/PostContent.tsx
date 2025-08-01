@@ -26,7 +26,7 @@ export default function PostContent({ post }: PostContentProps) {
     <main className="px-30 py-20" style={{ color: "var(--foreground)" }}>
       <div className="flex justify-between items-center mb-6">
         <h1
-          className="text-[50px] font-bold dm-serif-display-regular"
+          className="text-[50px] font-semibold dm-serif-display-regular"
           style={{ color: "var(--foreground)" }}>
           {post.title}
         </h1>

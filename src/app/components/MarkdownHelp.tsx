@@ -6,7 +6,7 @@ export default function MarkdownHelp() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mb-4">
+    <div className="mt-2">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}

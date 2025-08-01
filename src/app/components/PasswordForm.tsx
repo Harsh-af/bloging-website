@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { supabase } from "../supabaseClient";
+import { ButtonSkeleton } from "./SkeletonLoader";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function PasswordForm() {
@@ -115,12 +116,15 @@ export default function PasswordForm() {
             minLength={6}
           />
         </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50">
-          {loading ? "Updating..." : "Update Password"}
-        </button>
+        {loading ? (
+          <ButtonSkeleton className="w-full bg-green-600" text="Updating..." />
+        ) : (
+          <button
+            type="submit"
+            className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition-colors">
+            Update Password
+          </button>
+        )}
         {message && <p className="text-green-600 text-sm">{message}</p>}
         {error && <p className="text-red-600 text-sm">{error}</p>}
       </form>

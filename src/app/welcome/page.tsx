@@ -11,7 +11,7 @@ export default function WelcomePage() {
       </div>
       <div className="text-center">
         <h1
-          className="text-[80px] font-bold mb-8 dm-serif-display-regular"
+          className="text-[80px] font-semibold mb-8 dm-serif-display-regular"
           style={{ color: "var(--foreground)" }}>
           Welcome to <span className="text-gray-500">Blogger.</span>
         </h1>

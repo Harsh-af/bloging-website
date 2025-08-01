@@ -123,13 +123,13 @@ export default function HamburgerMenu() {
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = "transparent";
               }}>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2" style={{ color: "red" }}>
                 <svg
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="red"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round">

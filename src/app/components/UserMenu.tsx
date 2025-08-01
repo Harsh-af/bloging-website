@@ -16,7 +16,7 @@ export default function UserMenu() {
     <div className="flex items-center gap-4">
       <p className="text-sm" style={{ color: "var(--foreground)" }}>
         ようこそ、
-        <span className="font-bold">
+        <span className="font-semibold">
           {user?.user_metadata?.display_name || user?.email}
         </span>
       </p>

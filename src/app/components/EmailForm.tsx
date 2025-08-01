@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import { useAuth } from "../contexts/AuthContext";
+import { ButtonSkeleton } from "./SkeletonLoader";
 
 export default function EmailForm() {
   const [email, setEmail] = useState("");
@@ -80,12 +81,15 @@ export default function EmailForm() {
             required
           />
         </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
-          {loading ? "Updating..." : "Update Email"}
-        </button>
+        {loading ? (
+          <ButtonSkeleton className="w-full bg-blue-600" text="Updating..." />
+        ) : (
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-colors">
+            Update Email
+          </button>
+        )}
         {message && <p className="text-green-600 text-sm">{message}</p>}
         {error && <p className="text-red-600 text-sm">{error}</p>}
       </form>

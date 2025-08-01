@@ -19,7 +19,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
             <pre
               className="p-4 rounded-lg overflow-x-auto my-4"
               style={{
-                backgroundColor: "#f3f4f6",
+                backgroundColor: "var(--code-bg)",
                 border: "1px solid var(--blur-border)",
               }}>
               {children}
@@ -27,7 +27,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           ),
           h1: ({ children }) => (
             <h1
-              className="text-2xl font-bold mb-4 mt-6 first:mt-0"
+              className="text-2xl font-semibold mb-4 mt-6 first:mt-0"
               style={{
                 color: "var(--foreground)",
                 fontFamily: "Poppins, sans-serif",
@@ -37,7 +37,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           ),
           h2: ({ children }) => (
             <h2
-              className="text-xl font-bold mb-3 mt-5"
+              className="text-xl font-semibold mb-3 mt-5"
               style={{
                 color: "var(--foreground)",
                 fontFamily: "Poppins, sans-serif",
@@ -47,7 +47,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           ),
           h3: ({ children }) => (
             <h3
-              className="text-lg font-bold mb-2 mt-4"
+              className="text-lg font-semibold mb-2 mt-4"
               style={{
                 color: "var(--foreground)",
                 fontFamily: "Poppins, sans-serif",
@@ -67,7 +67,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
           ),
           strong: ({ children }) => (
             <strong
-              className="font-bold"
+              className="font-semibold"
               style={{
                 color: "var(--foreground)",
                 fontFamily: "Poppins, sans-serif",
@@ -133,7 +133,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   className="px-1 py-0.5 rounded text-xs font-mono"
                   style={{
                     color: "var(--foreground)",
-                    backgroundColor: "#f3f4f6",
+                    backgroundColor: "var(--code-bg)",
                     fontFamily:
                       "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace",
                   }}>
@@ -145,7 +145,7 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
               <code
                 className="text-xs font-mono block w-full"
                 style={{
-                  color: "#374151",
+                  color: "var(--foreground)",
                   fontFamily:
                     "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace",
                   whiteSpace: "pre-wrap",

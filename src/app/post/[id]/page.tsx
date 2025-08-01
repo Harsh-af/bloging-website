@@ -17,7 +17,7 @@ export default async function PostPage({
   if (error || !post) {
     console.error(error);
     return (
-      <p className="text-[50px] font-bold mb-6 dm-serif-display-regular">
+      <p className="text-[50px] font-semibold mb-6 dm-serif-display-regular">
         Post not found.
       </p>
     );

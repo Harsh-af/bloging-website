@@ -8,6 +8,7 @@ import HamburgerMenu from "./components/HamburgerMenu";
 import ThemeToggle from "./components/ThemeToggle";
 import { useAuth } from "./contexts/AuthContext";
 import { getDisplayNames } from "./actions/userActions";
+import { BlogListSkeleton } from "./components/SkeletonLoader";
 
 interface Post {
   id: string;
@@ -107,7 +108,7 @@ export default function HomePage() {
     <ProtectedRoute>
       <main className="px-30 py-10">
         <h1
-          className="text-[95px] font-bold mb-6 dm-serif-display-regular"
+          className="text-[95px] font-semibold mb-6 dm-serif-display-regular"
           style={{ color: "var(--foreground)" }}>
           Blogger.
         </h1>
@@ -115,13 +116,14 @@ export default function HomePage() {
           <div className="flex flex-col gap-3">
             <p style={{ color: "var(--foreground)" }}>
               Welcome{" "}
-              <span className="font-bold">{userDisplayName || `User ${user?.id?.slice(0, 8)}`}</span>
+              <span className="font-semibold">
+                {userDisplayName || `User ${user?.id?.slice(0, 8)}`}
+              </span>
             </p>
             <a
               href="/dashboard"
               className="inline-flex items-center font-semibold gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-fit"
-              style={{ width: "fit-content" }}
-            >
+              style={{ width: "fit-content" }}>
               Post a new Blog
               <svg
                 width="20"
@@ -144,15 +146,12 @@ export default function HomePage() {
         </div>
         <div className="mt-7">
           <p
-            className="font-bold text-left block mb-3"
+            className="font-semibold text-left block mb-3"
             style={{ color: "var(--foreground)" }}>
             Blogs:
           </p>
           {loading ? (
-            <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p style={{ color: "var(--foreground)" }}>Loading posts...</p>
-            </div>
+            <BlogListSkeleton />
           ) : error ? (
             <div className="text-center py-8">
               <p className="text-red-600">Error: {error}</p>

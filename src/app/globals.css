@@ -15,6 +15,7 @@
   --blur-border: rgba(107, 114, 128, 0.5);
   --muted-text: #6b7280;
   --hover-bg: rgba(229, 231, 235, 0.8);
+  --code-bg: #f3f4f6;
 }
 
 .dark {
@@ -26,6 +27,7 @@
   --blur-border: rgba(55, 65, 81, 0.3);
   --muted-text: #9ca3af;
   --hover-bg: rgba(55, 65, 81, 0.8);
+  --code-bg: #1f2937;
 }
 
 body {
@@ -52,4 +54,27 @@ body {
 
 .scale-\[100\] {
   transform: scale(100);
+}
+
+/* Skeleton loading animation */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Skeleton color variables */
+:root {
+  --skeleton-start: #f3f4f6;
+  --skeleton-middle: #e5e7eb;
+  --skeleton-end: #d1d5db;
+}
+
+.dark {
+  --skeleton-start: #0d1117;
+  --skeleton-middle: #161b22;
+  --skeleton-end: #21262d;
 }

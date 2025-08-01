@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import MarkdownRenderer from "./MarkdownRenderer";
 
 interface MarkdownEditorProps {
   value: string;
@@ -103,106 +104,6 @@ function MarkdownPreview({ content }: { content: string }) {
     );
   }
 
-  const lines = content.split("\n");
-  const elements = [];
-  let inCodeBlock = false;
-  let codeBlockContent = [];
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-
-    if (line.trim().startsWith("```")) {
-      if (inCodeBlock) {
-        elements.push(
-          <pre
-            key={`code-${i}`}
-            className="p-4 rounded-lg overflow-x-auto my-4 bg-gray-100 border border-gray-300">
-            <code className="text-xs font-mono block w-full text-gray-700">
-              {codeBlockContent.join("\n")}
-            </code>
-          </pre>
-        );
-        inCodeBlock = false;
-        codeBlockContent = [];
-      } else {
-        inCodeBlock = true;
-      }
-      continue;
-    }
-
-    if (inCodeBlock) {
-      codeBlockContent.push(line);
-      continue;
-    }
-
-    if (line.startsWith("# ")) {
-      elements.push(
-        <h1 key={i} className="text-2xl font-bold mb-2">
-          {line.substring(2)}
-        </h1>
-      );
-    } else if (line.startsWith("## ")) {
-      elements.push(
-        <h2 key={i} className="text-xl font-bold mb-2">
-          {line.substring(3)}
-        </h2>
-      );
-    } else if (line.startsWith("### ")) {
-      elements.push(
-        <h3 key={i} className="text-lg font-bold mb-2">
-          {line.substring(4)}
-        </h3>
-      );
-    } else if (line.startsWith("**") && line.endsWith("**")) {
-      elements.push(
-        <p key={i} className="mb-2">
-          <strong>{line.substring(2, line.length - 2)}</strong>
-        </p>
-      );
-    } else if (
-      line.startsWith("*") &&
-      line.endsWith("*") &&
-      !line.startsWith("**")
-    ) {
-      elements.push(
-        <p key={i} className="mb-2">
-          <em>{line.substring(1, line.length - 1)}</em>
-        </p>
-      );
-    } else if (line.startsWith("- ")) {
-      elements.push(
-        <li key={i} className="ml-4 mb-1">
-          • {line.substring(2)}
-        </li>
-      );
-    } else if (line.startsWith("1. ")) {
-      elements.push(
-        <li key={i} className="ml-4 mb-1">
-          {line.substring(3)}
-        </li>
-      );
-    } else if (line.trim() === "") {
-      elements.push(<br key={i} />);
-    } else {
-      elements.push(
-        <p key={i} className="mb-2">
-          {line}
-        </p>
-      );
-    }
-  }
-
-  if (inCodeBlock && codeBlockContent.length > 0) {
-    elements.push(
-      <pre
-        key="code-final"
-        className="p-4 rounded-lg overflow-x-auto my-4 bg-gray-100 border border-gray-300">
-        <code className="text-xs font-mono block w-full text-gray-700">
-          {codeBlockContent.join("\n")}
-        </code>
-      </pre>
-    );
-  }
-
-  return <div className="markdown-preview">{elements}</div>;
+  // Use the same MarkdownRenderer component for consistency
+  return <MarkdownRenderer content={content} />;
 }
