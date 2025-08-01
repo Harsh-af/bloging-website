@@ -77,7 +77,7 @@ export default function MarkdownEditor({
             onChange={(e) => onChange(e.target.value)}
             onKeyDown={handleTabKey}
             placeholder={placeholder || "Write your blog post in Markdown..."}
-            className="w-full h-full min-h-[200px] p-4 resize-none outline-none"
+            className="w-full h-full min-h-[200px] p-3 sm:p-4 resize-none outline-none text-sm sm:text-base"
             style={{
               backgroundColor: "transparent",
               color: "var(--foreground)",
@@ -85,7 +85,7 @@ export default function MarkdownEditor({
           />
         ) : (
           <div
-            className="p-4 prose prose-sm max-w-none"
+            className="p-3 sm:p-4 prose prose-sm max-w-none"
             style={{ color: "var(--foreground)" }}>
             <MarkdownPreview content={value} />
           </div>

@@ -43,7 +43,7 @@ export default function HamburgerMenu() {
         </svg>
       </button>
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-lg shadow-lg z-50">
+        <div className="absolute right-0 mt-2 w-48 sm:w-56 rounded-lg shadow-lg z-50">
           <div
             className="py-2 rounded-lg border backdrop-blur-sm"
             style={{

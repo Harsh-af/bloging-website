@@ -193,24 +193,24 @@ function DashboardContent() {
 
   return (
     <ProtectedRoute>
-      <main className="px-30 py-10">
-        <div className="flex justify-between items-center mb-6">
+      <main className="px-4 sm:px-8 md:px-16 lg:px-30 py-6 sm:py-10">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 sm:gap-0">
           <h1
-            className="text-[50px] font-semibold dm-serif-display-regular"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-[50px] font-semibold dm-serif-display-regular"
             style={{ color: "var(--foreground)" }}>
             {isEditing ? "Edit Post" : "Create a new Post"}
           </h1>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-end">
             <ThemeToggle />
             <HamburgerMenu />
             <Link
               href="/"
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+              className="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded hover:bg-blue-700 transition-colors text-sm sm:text-base">
               ← Back to Home
             </Link>
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8">
           <div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <input

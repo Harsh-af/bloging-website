@@ -46,14 +46,14 @@ export default function SignInPage() {
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center px-6">
+    <main className="min-h-screen flex items-center justify-center px-4 sm:px-6">
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 sm:mb-8">
           <h1
-            className="text-[50px] font-semibold mb-4 dm-serif-display-regular"
+            className="text-3xl sm:text-4xl md:text-[50px] font-semibold mb-4 dm-serif-display-regular"
             style={{ color: "var(--foreground)" }}>
             Sign In
           </h1>
@@ -118,7 +118,10 @@ export default function SignInPage() {
           )}
 
           {loading ? (
-            <ButtonSkeleton className="w-full bg-blue-600" text="Signing In..." />
+            <ButtonSkeleton
+              className="w-full bg-blue-600"
+              text="Signing In..."
+            />
           ) : (
             <button
               type="submit"

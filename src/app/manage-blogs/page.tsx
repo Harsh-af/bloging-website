@@ -11,6 +11,7 @@ import { useAuth } from "../contexts/AuthContext";
 import EditButton from "../components/EditButton";
 import DeleteButton from "../components/DeleteButton";
 import { BlogListSkeleton } from "../components/SkeletonLoader";
+import BlogPostItem from "../components/BlogPostItem";
 
 interface BlogPost {
   id: string;
@@ -59,20 +60,20 @@ export default function ManageBlogsPage() {
 
   return (
     <ProtectedRoute>
-      <main className="min-h-screen px-6 py-10">
+      <main className="min-h-screen px-4 sm:px-6 py-6 sm:py-10">
         <div className="max-w-4xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4 sm:gap-0">
             <h1
-              className="text-[50px] font-semibold dm-serif-display-regular"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-[50px] font-semibold dm-serif-display-regular"
               style={{ color: "var(--foreground)" }}>
               Manage Your Blogs
             </h1>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-end">
               <ThemeToggle />
               <HamburgerMenu />
               <Link
                 href="/"
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                className="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded hover:bg-blue-700 transition-colors text-sm sm:text-base">
                 ← Back to Home
               </Link>
             </div>
@@ -111,38 +112,40 @@ export default function ManageBlogsPage() {
               {posts.map((post) => (
                 <div
                   key={post.id}
-                  className="p-6 rounded-lg border backdrop-blur-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                  className="border-[1px] rounded-lg p-3 sm:p-4 mb-4 flex flex-col sm:flex-row justify-between items-start group hover:bg-[#151515] cursor-pointer transition-colors duration-300 backdrop-blur-sm"
                   style={{
                     backgroundColor: "var(--blur-bg)",
                     borderColor: "var(--blur-border)",
+                    backdropFilter: "blur(8px)",
+                    WebkitBackdropFilter: "blur(8px)",
                   }}
                   onClick={() => router.push(`/post/${post.id}`)}>
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <h2
-                        className="text-xl font-semibold mb-2"
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-1">
+                    <div className="flex-1 text-center sm:text-left">
+                      <div
+                        className="font-semibold transition-colors duration-200 group-hover:text-white text-sm sm:text-base"
                         style={{ color: "var(--foreground)" }}>
                         {post.title}
-                      </h2>
-                      <p
-                        className="text-sm mb-3 line-clamp-2"
+                      </div>
+                      <div
+                        className="text-xs sm:text-sm transition-colors duration-200 group-hover:text-gray-300 mt-1"
                         style={{ color: "var(--muted-text)" }}>
-                        {post.content.substring(0, 150)}
-                        {post.content.length > 150 ? "..." : ""}
-                      </p>
-                      <div className="flex items-center gap-4 text-sm">
-                        <span style={{ color: "var(--muted-text)" }}>
+                        <p className="line-clamp-2">
+                          {post.content.substring(0, 150)}
+                          {post.content.length > 150 ? "..." : ""}
+                        </p>
+                        <p>
                           Created:{" "}
                           {new Date(post.created_at).toLocaleDateString()}
-                        </span>
+                        </p>
                       </div>
                     </div>
-                    <div
-                      className="flex items-center gap-2 ml-4"
-                      onClick={(e) => e.stopPropagation()}>
-                      <EditButton postId={post.id} />
-                      <DeleteButton postId={post.id} />
-                    </div>
+                  </div>
+                  <div
+                    className="flex justify-center sm:justify-start mt-3 sm:mt-0"
+                    onClick={(e) => e.stopPropagation()}>
+                    <EditButton postId={post.id} />
+                    <DeleteButton postId={post.id} />
                   </div>
                 </div>
               ))}

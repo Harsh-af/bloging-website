@@ -121,19 +121,19 @@ export default function AccountPage() {
 
   return (
     <ProtectedRoute>
-      <main className="min-h-screen px-6 py-10">
+      <main className="min-h-screen px-4 sm:px-6 py-6 sm:py-10">
         <div className="max-w-2xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4 sm:gap-0">
             <h1
-              className="text-[50px] font-semibold dm-serif-display-regular"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-[50px] font-semibold dm-serif-display-regular"
               style={{ color: "var(--foreground)" }}>
               Account Settings
             </h1>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-end">
               <ThemeToggle />
               <Link
                 href="/"
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                className="bg-blue-600 text-white px-3 sm:px-4 py-2 rounded hover:bg-blue-700 transition-colors text-sm sm:text-base">
                 ← Back to Home
               </Link>
             </div>
@@ -331,7 +331,10 @@ export default function AccountPage() {
                   />
                 </div>
                 {loading ? (
-                  <ButtonSkeleton className="bg-purple-600" text="Updating..." />
+                  <ButtonSkeleton
+                    className="bg-purple-600"
+                    text="Updating..."
+                  />
                 ) : (
                   <button
                     type="submit"

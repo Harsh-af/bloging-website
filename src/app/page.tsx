@@ -13,6 +13,7 @@ import { BlogListSkeleton } from "./components/SkeletonLoader";
 interface Post {
   id: string;
   title: string;
+  content: string;
   created_at: string;
   author_id: string;
   author_display_name?: string;
@@ -106,14 +107,14 @@ export default function HomePage() {
 
   return (
     <ProtectedRoute>
-      <main className="px-30 py-10">
+      <main className="px-4 sm:px-8 md:px-16 lg:px-30 py-6 sm:py-10">
         <h1
-          className="text-[95px] font-semibold mb-6 dm-serif-display-regular"
+          className="text-4xl sm:text-6xl md:text-8xl lg:text-[95px] font-semibold mb-4 sm:mb-6 dm-serif-display-regular"
           style={{ color: "var(--foreground)" }}>
           Blogger.
         </h1>
-        <div className="flex justify-between items-center w-full mb-6">
-          <div className="flex flex-col gap-3">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full mb-6 gap-4 sm:gap-0">
+          <div className="flex flex-col gap-3 w-full sm:w-auto">
             <p style={{ color: "var(--foreground)" }}>
               Welcome{" "}
               <span className="font-semibold">
@@ -122,8 +123,7 @@ export default function HomePage() {
             </p>
             <a
               href="/dashboard"
-              className="inline-flex items-center font-semibold gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-fit"
-              style={{ width: "fit-content" }}>
+              className="inline-flex items-center font-semibold gap-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-fit">
               Post a new Blog
               <svg
                 width="20"
@@ -139,7 +139,7 @@ export default function HomePage() {
               </svg>
             </a>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 self-end sm:self-auto">
             <ThemeToggle />
             <HamburgerMenu />
           </div>
