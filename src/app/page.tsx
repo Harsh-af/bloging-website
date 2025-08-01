@@ -117,9 +117,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-3 w-full sm:w-auto">
             <p style={{ color: "var(--foreground)" }}>
               Welcome{" "}
-              <span className="font-semibold">
-                {userDisplayName || `User ${user?.id?.slice(0, 8)}`}
-              </span>
+              <span className="font-semibold">{userDisplayName || "User"}</span>
             </p>
             <a
               href="/dashboard"

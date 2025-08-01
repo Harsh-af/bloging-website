@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import React from "react";
 import { supabase } from "../supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -11,40 +12,38 @@ import { updateDisplayName } from "../actions/userActions";
 import { ButtonSkeleton } from "../components/SkeletonLoader";
 
 export default function AccountPage() {
-  const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [newDisplayName, setNewDisplayName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [userDisplayName, setUserDisplayName] = useState("");
   const router = useRouter();
   const { user } = useAuth();
 
-  const handleEmailChange = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    setMessage("");
+  // Fetch user display name on component mount
+  React.useEffect(() => {
+    const fetchUserDisplayName = async () => {
+      if (user?.id) {
+        try {
+          const { data, error } = await supabase
+            .from("users")
+            .select("display_name")
+            .eq("id", user.id)
+            .single();
 
-    if (!newEmail.trim()) {
-      setError("Email is required");
-      setLoading(false);
-      return;
-    }
+          if (!error && data) {
+            setUserDisplayName(data.display_name);
+          }
+        } catch (err) {
+          console.error("Error fetching user display name:", err);
+        }
+      }
+    };
 
-    const { error } = await supabase.auth.updateUser({
-      email: newEmail,
-    });
-
-    if (error) {
-      setError(error.message);
-    } else {
-      setMessage("Check your email for the confirmation link!");
-      setNewEmail("");
-    }
-    setLoading(false);
-  };
+    fetchUserDisplayName();
+  }, [user]);
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -173,55 +172,10 @@ export default function AccountPage() {
                   <span className="font-medium">Email:</span> {user?.email}
                 </p>
                 <p style={{ color: "var(--foreground)" }}>
-                  <span className="font-medium">User ID:</span> {user?.id}
+                  <span className="font-medium">Display Name:</span>{" "}
+                  {userDisplayName || "Not set"}
                 </p>
               </div>
-            </div>
-
-            {/* Change Email */}
-            <div
-              className="p-6 rounded-lg border"
-              style={{
-                backgroundColor: "var(--blur-bg)",
-                borderColor: "var(--blur-border)",
-              }}>
-              <h2
-                className="text-xl font-semibold mb-4"
-                style={{ color: "var(--foreground)" }}>
-                Change Email Address
-              </h2>
-              <form onSubmit={handleEmailChange} className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="newEmail"
-                    className="block text-sm font-medium mb-2"
-                    style={{ color: "var(--foreground)" }}>
-                    New Email Address*
-                  </label>
-                  <input
-                    type="email"
-                    id="newEmail"
-                    value={newEmail}
-                    onChange={(e) => setNewEmail(e.target.value)}
-                    className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-sm"
-                    style={{
-                      backgroundColor: "var(--blur-bg)",
-                      color: "var(--foreground)",
-                      borderColor: "var(--blur-border)",
-                    }}
-                    required
-                  />
-                </div>
-                {loading ? (
-                  <ButtonSkeleton className="bg-blue-600" text="Updating..." />
-                ) : (
-                  <button
-                    type="submit"
-                    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
-                    Update Email
-                  </button>
-                )}
-              </form>
             </div>
 
             {/* Change Password */}
