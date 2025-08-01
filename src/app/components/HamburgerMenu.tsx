@@ -11,8 +11,14 @@ export default function HamburgerMenu() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await signOut();
-    router.push("/");
+    try {
+      await signOut();
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Still redirect even if logout fails
+      router.push("/");
+    }
   };
 
   return (
