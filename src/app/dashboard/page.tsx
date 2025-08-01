@@ -223,7 +223,7 @@ function DashboardContent() {
             </Link>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-8">
+        <div className="max-w-2xl mx-auto mt-17">
           <div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <input
